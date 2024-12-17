@@ -1,28 +1,5 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    hashedPassword: {
-        type: String,
-        required: true
-    },
-});
-const commentSchema = new mongoose.Schema({
-    text: {
-        type: String,
-        required: true,
-
-    },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }
-});
-
 
 const skinteaSchema = new mongoose.Schema(
     {
@@ -50,10 +27,39 @@ const skinteaSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         },
-        skintea: [skinteaSchema],
+        
     },
         {timestamps: true}
 );
+
+
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    hashedPassword: {
+        type: String,
+        required: true
+    },
+
+    skinTea: [skinteaSchema]
+});
+const commentSchema = new mongoose.Schema({
+    text: {
+        type: String,
+        required: true,
+
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }
+});
+
+
+
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
@@ -61,4 +67,5 @@ userSchema.set('toJSON', {
     }
 });
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+module.exports = User;
