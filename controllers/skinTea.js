@@ -1,5 +1,6 @@
 const verifyToken = require("../middleware/verify-token");
 const User = require("../models/user");
+const Skintea= require("../models/skintea");
 const express = require("express");
 const router = express.Router();
 
@@ -9,7 +10,7 @@ const router = express.Router();
 
 router.get("/", async(req,res)=>{
     try{
-        const skinT= await User.find().populate("author").sort({
+        const skinT= await Skintea.find().populate("author").sort({
             createdAt: "desc",
         });
 
@@ -24,7 +25,7 @@ router.get("/", async(req,res)=>{
 router.delete("/:id", verifyToken, async (req, res) => {
     try {
       
-      const foundTea = await User.findById(req.params.id);
+      const foundTea = await Skintea.findById(req.params.id);
   
       if (!foundTea.author.equals(req.user._id)) {
         return res
@@ -69,9 +70,9 @@ router.put("/:id", verifyToken, async (req, res) => {
     try {
       // add author onto the hoot (adds whoevers logged in)
       req.body.author = req.user._id;
-      const skinT = await User.create(req.body);
+      const skinT = await Skintea.create(req.body);
       skinT._doc.author = req.user;
-      res.status(201).json({ skintea });
+      res.status(201).json({ skinT: skinT });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -80,7 +81,7 @@ router.put("/:id", verifyToken, async (req, res) => {
 
   router.get("/:id", async (req, res) => {
     try {
-      const foundTea = await User.findById(req.params.id).populate("author");
+      const foundTea = await Skintea.findById(req.params.id).populate("author");
       res.status(200).json({ skintea: foundTea });
     } catch (error) {
       res.status(500).json({ error: error.message });
