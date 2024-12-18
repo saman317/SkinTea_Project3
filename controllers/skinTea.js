@@ -33,8 +33,8 @@ router.delete("/:id", verifyToken, async (req, res) => {
           .json({ error: "Your are not allowed to delete other people's tea" });
       }
   
-      const deletedTea = await User.findByIdAndDelete(req.params.id);
-      res.status(200).json({ skinTea: deletedTea });
+      const deletedTea = await Skintea.findByIdAndDelete(req.params.id);
+      res.status(200).json({ deletedTea: deletedTea });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -43,7 +43,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
   // PUT /skintea/:id
 router.put("/:id", verifyToken, async (req, res) => {
     try {
-        const foundTea = await User.findById(req.params.id);
+        const foundTea = await Skintea.findById(req.params.id);
   
         if (!foundTea.author.equals(req.user._id)) {
           return res
@@ -51,7 +51,7 @@ router.put("/:id", verifyToken, async (req, res) => {
             .json({ error: "Your are not allowed to edit other people's tea" });
       }
   
-      const updatedTea = await User.findByIdAndUpdate(
+      const updatedTea = await Skintea.findByIdAndUpdate(
         req.params.id, // id of the hoot we are updates
         req.body, // body from the request
         {
@@ -59,7 +59,7 @@ router.put("/:id", verifyToken, async (req, res) => {
         }
       );
   
-      res.status(200).json({ skintea: updatedTea});
+      res.status(200).json({ updatedTea: updatedTea});
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -82,7 +82,7 @@ router.put("/:id", verifyToken, async (req, res) => {
   router.get("/:id", async (req, res) => {
     try {
       const foundTea = await Skintea.findById(req.params.id).populate("author");
-      res.status(200).json({ skintea: foundTea });
+      res.status(200).json({ foundTea: foundTea });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
