@@ -118,7 +118,7 @@ router.put("/:id", verifyToken, async (req, res) => {
       // find the comment to update
       const foundSkintea = await Skintea.findById(req.params.id);
       // find the comment to update
-      const foundSkintea = foundSkintea.comments.id(req.params.commentId);
+      const foundComment = foundSkintea.comments.id(req.params.commentId);
       // check if the user is the owner of the comment
       if (!foundSkintea.author.equals(req.user._id)) {
         return res
