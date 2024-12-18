@@ -15,4 +15,4 @@ const commentSchema = new mongoose.Schema({
 });
 
 
-module.exports= commentSchema
+module.exports= commentSchema //already referenced and embedded
