@@ -78,10 +78,12 @@ router.put("/:id", verifyToken, async (req, res) => {
     }
   });
 
-
+//SHOW GET/skintea/:id
   router.get("/:id", async (req, res) => {
     try {
-      const foundTea = await Skintea.findById(req.params.id).populate("author");
+      const foundTea = await Skintea.findById(req.params.id)
+      .populate("author")
+      .populate("comments.author")
       res.status(200).json({ foundTea: foundTea });
     } catch (error) {
       res.status(500).json({ error: error.message });
