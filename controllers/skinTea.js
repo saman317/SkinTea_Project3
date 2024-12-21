@@ -52,7 +52,7 @@ router.put("/:id", verifyToken, async (req, res) => {
       }
   
       const updatedTea = await Skintea.findByIdAndUpdate(
-        req.params.id, // id of the hoot we are updates
+        req.params.id, // id of skintea we are updates
         req.body, // body from the request
         {
           new: true, // return the updated hoot
