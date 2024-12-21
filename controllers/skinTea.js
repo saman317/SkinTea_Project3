@@ -32,7 +32,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
           .status(403)
           .json({ error: "Your are not allowed to delete other people's tea" });
       }
-  
+   
       const deletedTea = await Skintea.findByIdAndDelete(req.params.id);
       res.status(200).json({ deletedTea: deletedTea });
     } catch (error) {
@@ -113,35 +113,33 @@ router.put("/:id", verifyToken, async (req, res) => {
     }
   });
   
-  // PUT for Comments
+  // // PUT for Comments
 
-  router.put("/:id/comments/:commentId", verifyToken, async (req, res) => {
-    try {
-      // find the comment to update
-      const foundSkintea = await Skintea.findById(req.params.id);
-      // find the comment to update
-      const foundComment = foundSkintea.comments.id(req.params.commentId);
-      // check if the user is the owner of the comment
-      if (!foundSkintea.author.equals(req.user._id)) {
-        return res
-          .status(403)
-          .json({
-            error: "Your are not allowed to update other people comments",
-          });
-      }
-      // update the comment
-      foundSkintea.text = req.body.text;
-      // save the comment
-      await foundSkintea.save();
-      // return the updated comment
-      res.status(200).json({ message: "Ok" });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-  
-  
-  
+  // router.put("/:id/comments/:commentId", verifyToken, async (req, res) => {
+  //   try {
+  //     // find the comment to update
+  //     const foundSkintea = await Skintea.findById(req.params.id);
+  //     // find the comment to update
+  //     const foundComment = foundSkintea.comments.id(req.params.commentId);
+  //     // check if the user is the owner of the comment
+  //     if (!foundSkintea.author.equals(req.user._id)) {
+  //       return res
+  //         .status(403)
+  //         .json({
+  //           error: "Your are not allowed to update other people comments",
+  //         });
+  //     }
+  //     // update the comment
+  //     foundSkintea.text = req.body.text;
+  //     // save the comment
+  //     await foundSkintea.save();
+  //     // return the updated comment
+  //     res.status(200).json({ message: "Ok" });
+  //   } catch (error) {
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // });
+
   
   
   
