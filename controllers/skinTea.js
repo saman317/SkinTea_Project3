@@ -70,6 +70,7 @@ router.put("/:id", verifyToken, async (req, res) => {
     try {
       // add author onto the hoot (adds whoevers logged in)
       req.body.author = req.user._id;
+      console.log(req.body)
       const skinT = await Skintea.create(req.body);
       skinT._doc.author = req.user;
       res.status(201).json({ skinT: skinT });
