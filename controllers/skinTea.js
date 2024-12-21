@@ -32,7 +32,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
           .status(403)
           .json({ error: "Your are not allowed to delete other people's tea" });
       }
-  
+   
       const deletedTea = await Skintea.findByIdAndDelete(req.params.id);
       res.status(200).json({ deletedTea: deletedTea });
     } catch (error) {
