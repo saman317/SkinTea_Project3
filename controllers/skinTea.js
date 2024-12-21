@@ -10,11 +10,11 @@ const router = express.Router();
 
 router.get("/", async(req,res)=>{
     try{
-        const skinT= await Skintea.find().populate("author").sort({
+        const skintea= await Skintea.find().populate("author").sort({
             createdAt: "desc",
         });
 
-        res.status(200).json({skinT});
+        res.status(200).json({skintea});
 
     }catch(error){
         res.status(500).json({error: error.message})
@@ -70,9 +70,9 @@ router.put("/:id", verifyToken, async (req, res) => {
     try {
       // add author onto the hoot (adds whoevers logged in)
       req.body.author = req.user._id;
-      const skinT = await Skintea.create(req.body);
-      skinT._doc.author = req.user;
-      res.status(201).json({ skinT: skinT });
+      const skintea = await Skintea.create(req.body);
+      skintea._doc.author = req.user;
+      res.status(201).json({ skintea: skintea });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
