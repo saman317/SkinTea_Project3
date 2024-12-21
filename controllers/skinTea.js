@@ -70,9 +70,9 @@ router.put("/:id", verifyToken, async (req, res) => {
     try {
       // add author onto the hoot (adds whoevers logged in)
       req.body.author = req.user._id;
-      const skintea = await Skintea.create(req.body);
-      skintea._doc.author = req.user;
-      res.status(201).json({ skintea: skintea });
+      const skinT = await Skintea.create(req.body);
+      skinT._doc.author = req.user;
+      res.status(201).json({ skinT: skinT });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
