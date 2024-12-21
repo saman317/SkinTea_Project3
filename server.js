@@ -8,6 +8,7 @@ const testJWTRouter = require('./controllers/test-jwt');
 const usersRouter = require('./controllers/users');
 const profilesRouter = require('./controllers/profiles');
 const skinTeaRouter= require("./controllers/skinTea")
+const port= process.env.PORT || 3000
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -23,6 +24,6 @@ app.use('/users', usersRouter);
 app.use('/profiles', profilesRouter);
 app.use("/skintea", skinTeaRouter )
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('The express app is ready!');
 });
